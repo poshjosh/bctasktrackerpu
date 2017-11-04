@@ -16,7 +16,7 @@
 
 package com.bc.tasktracker.jpa;
 
-import com.bc.jpa.JpaContext;
+import com.bc.jpa.context.PersistenceUnitContext;
 import com.bc.jpa.dao.Criteria;
 import com.bc.jpa.dao.SelectDao;
 import com.bc.tasktracker.jpa.entities.master.Appointment;
@@ -41,7 +41,7 @@ public class SelectDaoBuilderImpl_Old<T> extends AbstractSelectDaoBuilder<T> {
         
         this.checkBuildAttempted();
         
-        final JpaContext jpaContext = this.getJpaContext();
+        final PersistenceUnitContext puContext = this.getPersistenceUnitContext();
         final Class resultType = this.getResultType();
         final String query = this.getQuery();
         final Date deadlineFrom = this.getDeadlineFrom();
@@ -55,7 +55,7 @@ public class SelectDaoBuilderImpl_Old<T> extends AbstractSelectDaoBuilder<T> {
         Objects.requireNonNull(resultType);
         
         final JoinDocTaskTaskresponse<T> dao = new JoinDocTaskTaskresponse(
-                jpaContext.getEntityManager(resultType), resultType, null);
+                puContext.getEntityManager(), resultType, null);
         
 //        dao.from(Task.class);
         

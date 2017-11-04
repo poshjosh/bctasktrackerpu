@@ -16,14 +16,14 @@
 
 package com.bc.tasktracker.jpa;
 
-import com.bc.jpa.JpaContext;
-import com.bc.jpa.dao.BuilderForSelect;
+import com.bc.jpa.context.PersistenceUnitContext;
 import com.bc.jpa.dao.Criteria;
 import com.bc.tasktracker.jpa.entities.master.Appointment;
 import com.bc.tasktracker.jpa.entities.master.Appointment_;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import com.bc.jpa.dao.Select;
 
 /**
  * @author Chinomso Bassey Ikwuagwu on Mar 10, 2017 3:57:32 PM
@@ -59,8 +59,8 @@ public abstract class AbstractSelectDaoBuilder<T> implements SelectDaoBuilder<T>
     }
     
     @Override
-    public SelectDaoBuilder<T> jpaContext(JpaContext jpaContext) {
-        this.parameters.put(PARAM_JPACONTEXT, jpaContext);
+    public SelectDaoBuilder<T> persistenceUnitContext(PersistenceUnitContext context) {
+        this.parameters.put(PARAM_JPACONTEXT, context);
         return this;
     }
 
@@ -103,8 +103,9 @@ public abstract class AbstractSelectDaoBuilder<T> implements SelectDaoBuilder<T>
     @Override
     public SelectDaoBuilder<T> who(String who) {
         if(who != null && !who.isEmpty()) {
-            try(final BuilderForSelect<Appointment> bfs = this.getJpaContext().getBuilderForSelect(Appointment.class)) {
-                final Appointment appt = bfs
+            try(final Select<Appointment> select = this.getPersistenceUnitContext()
+                    .getDao().forSelect(Appointment.class)) {
+                final Appointment appt = select.from(Appointment.class)
                         .where(Appointment_.appointment.getName(), Criteria.ComparisonOperator.EQUALS, who)
                         .or().where(Appointment_.abbreviation.getName(), Criteria.ComparisonOperator.EQUALS, who)
                         .createQuery().getSingleResult();
@@ -132,8 +133,8 @@ public abstract class AbstractSelectDaoBuilder<T> implements SelectDaoBuilder<T>
         return this;
     }
 
-    public JpaContext getJpaContext() {
-        return (JpaContext)this.parameters.get(PARAM_JPACONTEXT);
+    public PersistenceUnitContext getPersistenceUnitContext() {
+        return (PersistenceUnitContext)this.parameters.get(PARAM_JPACONTEXT);
     }
     
     public Class<T> getResultType() {

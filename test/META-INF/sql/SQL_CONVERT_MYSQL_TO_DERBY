@@ -1,0 +1,35 @@
+REMOVE 
+======
+All drop queries e.g: drop table if exists [table_name];
+The qualifier part of INTEGER e.g: from INTEGER(8) to INTEGER
+All 'null' leave 'not null' as columns are 'null' by default ?
+All 'ON DELETE CASCADE' as permitted values are only: NO ACTION or RESTRICT 
+All ENGINE=[engine_name] e.g: 'ENGINE=INNODB'
+All 'CHARACTER SET = utf8 COLLATE = utf8_general_ci' as derby uses unicode by default ? 
+
+REPLACE
+=======
+All 'DATETIME' with 'TIMESTAMP'
+All 'ON UPDATE CURRENT_TIMESTAMP' with the appropriate CREATE TRIGGER statement an example is given below:
+
+MySQL
+-----
+CREATE TABLE `response` (
+    `responseid` INTEGER NOT NULL PRIMARY KEY,
+    `response` VARCHAR(1000) NOT NULL,
+    `timemodified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+Derby
+-----
+CREATE TABLE "response" (
+    "responseid" INTEGER NOT NULL PRIMARY KEY,
+    "response" VARCHAR(1000) NOT NULL,
+    "timemodified" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE TRIGGER UPDATE_TIMEMODIFIED
+AFTER UPDATE OF "responseid", "response" ON votes
+REFERENCING OLD AS EXISTING
+FOR EACH ROW MODE DB2SQL
+    UPDATE votes SET "timemodified" = CURRENT_TIMESTAMP
+    WHERE "responseid" = EXISTING."reponseid"

@@ -16,7 +16,7 @@
 
 package com.bc.tasktracker.jpa;
 
-import com.bc.jpa.JpaContext;
+import com.bc.jpa.context.PersistenceUnitContext;
 import com.bc.tasktracker.jpa.entities.master.Appointment;
 import com.bc.tasktracker.jpa.entities.master.Task;
 import com.bc.tasktracker.jpa.entities.master.Task_;
@@ -29,9 +29,9 @@ import java.util.Objects;
  */
 public class TaskDao {
 
-    private final JpaContext jpaContext;
+    private final PersistenceUnitContext jpaContext;
 
-    public TaskDao(JpaContext jpaContext) {
+    public TaskDao(PersistenceUnitContext jpaContext) {
         this.jpaContext = jpaContext;
     }
     
@@ -72,7 +72,7 @@ public class TaskDao {
         Objects.requireNonNull(author);
         Objects.requireNonNull(desc);
         Objects.requireNonNull(resp);
-        found = jpaContext.getBuilderForSelect(Task.class)
+        found = jpaContext.getDao().forSelect(Task.class)
                 .where(Task.class, Task_.author.getName(), author)
                 .and().where(Task.class, Task_.description.getName(), desc)
                 .and().where(Task.class, Task_.reponsibility.getName(), resp)

@@ -16,7 +16,7 @@
 
 package com.bc.tasktracker.jpa;
 
-import com.bc.jpa.JpaContext;
+import com.bc.jpa.context.PersistenceUnitContext;
 import com.bc.tasktracker.jpa.entities.master.Doc;
 import com.bc.tasktracker.jpa.entities.master.Doc_;
 import java.util.Date;
@@ -28,9 +28,9 @@ import java.util.Objects;
  */
 public class DocDao {
 
-    private final JpaContext jpaContext;
+    private final PersistenceUnitContext jpaContext;
 
-    public DocDao(JpaContext jpaContext) {
+    public DocDao(PersistenceUnitContext jpaContext) {
         this.jpaContext = jpaContext;
     }
     
@@ -63,7 +63,7 @@ public class DocDao {
     public List<Doc> find(Date datesigned, String refnum, 
             String subj, int firstResult, int maxResults) {
         Objects.requireNonNull(subj);
-        final List<Doc> found = jpaContext.getBuilderForSelect(Doc.class)
+        final List<Doc> found = jpaContext.getDao().forSelect(Doc.class)
                 .where(Doc.class, Doc_.referencenumber.getName(), refnum)
                 .and().where(Doc.class, Doc_.subject.getName(), subj)
                 .and().where(Doc.class, Doc_.datesigned.getName(), datesigned)

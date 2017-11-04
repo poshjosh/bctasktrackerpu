@@ -20,17 +20,17 @@
       <property name="eclipselink.jdbc.cache-statements" value="true"/>
       <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
       <property name="eclipselink.jdbc.batch-writing.size" value="1000"/>
-      <property name="eclipselink.logging.level.sql" value="FINE"/>
+      <!--property name="eclipselink.logging.level.sql" value="FINE"/-->
       <!--property name="eclipselink.logging.parameters" value="true"/-->
     </properties>
   </persistence-unit>
   <persistence-unit name="bctasktrackerPUslave" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.bc.tasktracker.jpa.entities.master.Taskresponse</class>
-    <class>com.bc.tasktracker.jpa.entities.master.Appointment</class>
-    <class>com.bc.tasktracker.jpa.entities.master.Doc</class>
-    <class>com.bc.tasktracker.jpa.entities.master.Task</class>
-    <class>com.bc.tasktracker.jpa.entities.master.Unit</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Appointment</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Task</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Unit</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Taskresponse</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Doc</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:bctasktracker;create=true"/>
@@ -43,7 +43,7 @@
       <property name="eclipselink.jdbc.cache-statements" value="true"/>
       <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
       <property name="eclipselink.jdbc.batch-writing.size" value="1000"/>
-      <property name="eclipselink.logging.level.sql" value="FINE"/>
+      <!--property name="eclipselink.logging.level.sql" value="FINE"/-->
       <!--property name="eclipselink.logging.parameters" value="true"/-->
     </properties>
   </persistence-unit>

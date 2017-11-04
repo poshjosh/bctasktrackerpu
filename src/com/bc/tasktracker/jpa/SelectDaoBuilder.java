@@ -16,7 +16,7 @@
 
 package com.bc.tasktracker.jpa;
 
-import com.bc.jpa.JpaContext;
+import com.bc.jpa.context.PersistenceUnitContext;
 import com.bc.jpa.dao.SelectDao;
 import com.bc.tasktracker.jpa.entities.master.Appointment;
 import java.util.Date;
@@ -32,7 +32,7 @@ public interface SelectDaoBuilder<T> {
 
     SelectDaoBuilder<T> parameters(Map<String, Object> parameters);
     
-    SelectDaoBuilder<T> jpaContext(JpaContext jpaContext);
+    SelectDaoBuilder<T> persistenceUnitContext(PersistenceUnitContext context);
     
     SelectDaoBuilder<T> resultType(Class<T> resultType);
     

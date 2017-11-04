@@ -16,9 +16,8 @@
 
 package com.bc.tasktracker.jpa;
 
-import com.bc.jpa.JpaContext;
-import com.bc.jpa.dao.BuilderForSelect;
-import com.bc.jpa.dao.BuilderForSelectImpl;
+import com.bc.jpa.context.PersistenceUnitContext;
+import com.bc.jpa.dao.SelectImpl;
 import com.bc.jpa.dao.SelectDao;
 import com.bc.tasktracker.jpa.entities.master.Appointment;
 import com.bc.tasktracker.jpa.entities.master.Doc;
@@ -41,6 +40,7 @@ import javax.persistence.EntityManager;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.bc.jpa.dao.Select;
 
 /**
  * @author Chinomso Bassey Ikwuagwu on Mar 3, 2017 11:39:11 PM
@@ -77,7 +77,7 @@ public class SelectDaoBuilderImpl<T> extends AbstractSelectDaoBuilder<T> {
         
         logger.log(Level.FINER, "Parameters: {0}", this.getParameters());
         
-        final JpaContext jpaContext = this.getJpaContext();
+        final PersistenceUnitContext puContext = this.getPersistenceUnitContext();
         final Class<T> resultType = this.getResultType();
         final String textToFind = this.getQuery();
         final Date deadlineFrom = this.getDeadlineFrom();
@@ -96,9 +96,9 @@ public class SelectDaoBuilderImpl<T> extends AbstractSelectDaoBuilder<T> {
         
         final String query = !hasQuery ? null : '%'+textToFind+'%';
         
-        final EntityManager em = jpaContext.getEntityManager(resultType);
+        final EntityManager em = puContext.getEntityManager();
 
-        final BuilderForSelect<T> dao = new BuilderForSelectImpl(em, resultType);
+        final Select<T> dao = new SelectImpl(em, resultType);
         
         final CriteriaBuilder cb = dao.getCriteriaBuilder();
         

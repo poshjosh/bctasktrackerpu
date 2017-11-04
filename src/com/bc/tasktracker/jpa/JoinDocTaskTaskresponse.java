@@ -15,7 +15,7 @@
  */
 package com.bc.tasktracker.jpa;
 
-import com.bc.jpa.dao.BuilderForSelectImpl;
+import com.bc.jpa.dao.SelectImpl;
 import static com.bc.jpa.dao.Criteria.AND;
 import com.bc.jpa.dao.DatabaseFormat;
 import com.bc.tasktracker.jpa.entities.master.Doc;
@@ -31,7 +31,7 @@ import javax.persistence.criteria.Predicate;
 /**
  * @author Chinomso Bassey Ikwuagwu on Feb 20, 2017 6:40:48 PM
  */
-public class JoinDocTaskTaskresponse<T> extends BuilderForSelectImpl<T> {
+public class JoinDocTaskTaskresponse<T> extends SelectImpl<T> {
 
     public JoinDocTaskTaskresponse(EntityManager em, Class<T> resultType) {
         this(em, resultType, null);

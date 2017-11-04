@@ -8,10 +8,11 @@
     <class>com.bc.tasktracker.jpa.entities.master.Task</class>
     <class>com.bc.tasktracker.jpa.entities.master.Unit</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <shared-cache-mode>ALL</shared-cache-mode>  
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://europa.ignitionserver.net:3306/"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://europa.ignitionserver.net:3306/loosebox_naftasktrackerweb"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="loosebox_nafuser"/>
+      <property name="javax.persistence.jdbc.password" value="7ApacheLaunchers"/>
       <!--property name="javax.persistence.schema-generation.database.action" value="create"/-->
       <!--property name="javax.persistence.schema-generation.create-source" value="metadata"/-->
       <property name="eclipselink.connection-pool.default.initial" value="1"/>
@@ -20,31 +21,24 @@
       <property name="eclipselink.jdbc.cache-statements" value="true"/>
       <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
       <property name="eclipselink.jdbc.batch-writing.size" value="1000"/>
-      <property name="eclipselink.logging.level.sql" value="FINE"/>
+      <!--property name="eclipselink.logging.level.sql" value="FINE"/-->
       <!--property name="eclipselink.logging.parameters" value="true"/-->
     </properties>
   </persistence-unit>
   <persistence-unit name="bctasktrackerPUslave" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.bc.tasktracker.jpa.entities.master.Taskresponse</class>
-    <class>com.bc.tasktracker.jpa.entities.master.Appointment</class>
-    <class>com.bc.tasktracker.jpa.entities.master.Doc</class>
-    <class>com.bc.tasktracker.jpa.entities.master.Task</class>
-    <class>com.bc.tasktracker.jpa.entities.master.Unit</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Appointment</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Task</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Unit</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Taskresponse</class>
+    <class>com.bc.tasktracker.jpa.entities.slave.Doc</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:bctasktracker;create=true"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <!--property name="javax.persistence.schema-generation.database.action" value="create"/-->
       <!--property name="javax.persistence.schema-generation.create-source" value="metadata"/-->
-      <property name="eclipselink.connection-pool.default.initial" value="1"/>
-      <property name="eclipselink.connection-pool.default.min" value="64"/>
-      <property name="eclipselink.connection-pool.default.max" value="64"/>
-      <property name="eclipselink.jdbc.cache-statements" value="true"/>
-      <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
-      <property name="eclipselink.jdbc.batch-writing.size" value="1000"/>
-      <property name="eclipselink.logging.level.sql" value="FINE"/>
-      <!--property name="eclipselink.logging.parameters" value="true"/-->
     </properties>
   </persistence-unit>
 </persistence>
+
